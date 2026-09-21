@@ -1,0 +1,45 @@
+# Root file system for Minix on the Lisa on the ProFile (/dev/hd0), tools/mkfs.py prototype.
+# Placed after the boot image by tools/mklisa.py --fs. The Makefile replaces
+# the placeholder line in /bin with every command in build/lisa-minix/cmd,
+# and the one in /usr/test with the test programs.
+boot
+8000 1000
+d--755 2 2
+bin d--755 2 2
+@BIN@
+$
+dev d--755 2 2
+	ram     b--600 0 0 1 0
+	mem     c--600 0 0 1 1
+	kmem    c--600 0 0 1 2
+	null    c--666 0 0 1 3
+	tty0    c--666 0 0 4 0
+	tty     c--666 0 0 5 0
+	hd0     b--600 0 0 3 0
+	hd1     b--600 0 0 3 1
+	fd0     b--666 0 0 2 0
+$
+etc d--755 2 2
+	passwd  ---644 0 0 rootfs/etc/passwd
+	group   ---644 0 0 rootfs/etc/group
+	ttys    ---644 0 0 rootfs/etc/ttys
+	rc      ---644 0 0 rootfs/etc/rc
+	motd    ---644 0 0 rootfs/etc/motd
+	termcap ---644 0 0 rootfs/etc/termcap
+$
+tmp d--777 2 2
+$
+mnt d--755 2 2
+$
+usr d--755 2 2
+	adm d--755 2 2
+	$
+	tmp d--777 2 2
+	$
+	test d--777 2 2
+		phase5    ---755 2 2 tests/phase5.sh
+		cmds      ---755 2 2 tests/cmds.sh
+@TEST@
+	$
+$
+$

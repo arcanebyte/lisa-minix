@@ -1,0 +1,4 @@
+operator:*:0:root
+daemon:*:1:daemon
+bin:*:2:bin
+other:*:3:ast

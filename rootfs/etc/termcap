@@ -1,0 +1,15 @@
+mx|minix|Minix console on the Apple Lisa (src/kernel/lisa/lisavdu.c):\
+	:co#90:li#40:bs:\
+	:cl=\E[H\E[J:cd=\E[J:ce=\E[K:cm=\E[%i%d;%dH:ho=\E[H:\
+	:up=\E[A:do=\E[B:nd=\E[C:le=^H:\
+	:al=\E[L:dl=\E[M:ic=\E[@:dc=\E[P:\
+	:sf=\ED:sr=\EM:\
+	:so=\E[7m:se=\E[m:us=\E[4m:ue=\E[m:md=\E[7m:mr=\E[7m:me=\E[m:\
+	:ku=\E[A:kd=\E[B:kr=\E[C:kl=\E[D:
+vt100|vt100 terminal on serial port B:\
+	:co#80:li#24:am:bs:xn:\
+	:cl=\E[H\E[J:cd=\E[J:ce=\E[K:cm=\E[%i%d;%dH:ho=\E[H:\
+	:up=\E[A:do=^J:nd=\E[C:le=^H:\
+	:cs=\E[%i%d;%dr:sf=^J:sr=\EM:\
+	:so=\E[7m:se=\E[m:us=\E[4m:ue=\E[m:md=\E[1m:mr=\E[7m:me=\E[m:\
+	:ku=\EOA:kd=\EOB:kr=\EOC:kl=\EOD:ks=\E[?1h\E=:ke=\E[?1l\E>:

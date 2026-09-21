@@ -1,0 +1,11 @@
+# Disk images are never committed
+*.image
+*.dc42
+*.st
+*.msa
+
+# Build output
+build/
+*.o
+*.a
+*.elf

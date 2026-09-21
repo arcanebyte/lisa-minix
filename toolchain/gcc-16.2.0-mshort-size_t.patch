@@ -1,0 +1,49 @@
+--- a/gcc/config/m68k/m68kemb.h
++++ b/gcc/config/m68k/m68kemb.h
+@@ -4,8 +4,12 @@
+ 
+ /* Override the SVR4 ABI for this target.  */
+ 
+-#define PTRDIFF_TYPE "long int"
+-#define SIZE_TYPE "long unsigned int"
++/* With -mshort, size_t and ptrdiff_t follow int, as in 16-bit-int 68000
++   compilers such as ACK (Minix-ST).  The internal sizetype stays 32 bits
++   so that address arithmetic is not truncated.  */
++#define PTRDIFF_TYPE (TARGET_SHORT ? "int" : "long int")
++#define SIZE_TYPE (TARGET_SHORT ? "unsigned int" : "long unsigned int")
++#define SIZETYPE "long unsigned int"
+ 
+ /* In order for bitfields to work on a 68000, or with -mnobitfield, we must
+    define either PCC_BITFIELD_TYPE_MATTERS or STRUCTURE_SIZE_BOUNDARY.
+--- a/gcc/expr.cc
++++ b/gcc/expr.cc
+@@ -2559,10 +2559,12 @@
+   src_addr = convert_memory_address (ptr_mode, src_addr);
+   src_tree = make_tree (ptr_type_node, src_addr);
+ 
+-  size_mode = TYPE_MODE (sizetype);
++  /* Pass the length as size_t, the type memcpy, memmove, memcmp and memset
++     take, which differs from sizetype on m68k with -mshort.  */
++  size_mode = TYPE_MODE (size_type_node);
+   size = convert_to_mode (size_mode, size, 1);
+   size = copy_to_mode_reg (size_mode, size);
+-  size_tree = make_tree (sizetype, size);
++  size_tree = make_tree (size_type_node, size);
+ 
+   /* It is incorrect to use the libcall calling conventions for calls to
+      memcpy/memmove/memcmp because they can be provided by the user.  */
+@@ -3955,10 +3957,12 @@
+     val = convert_to_mode (TYPE_MODE (integer_type_node), val, 1);
+   val_tree = make_tree (integer_type_node, val);
+ 
+-  size_mode = TYPE_MODE (sizetype);
++  /* Pass the length as size_t, the type memcpy, memmove, memcmp and memset
++     take, which differs from sizetype on m68k with -mshort.  */
++  size_mode = TYPE_MODE (size_type_node);
+   size = convert_to_mode (size_mode, size, 1);
+   size = copy_to_mode_reg (size_mode, size);
+-  size_tree = make_tree (sizetype, size);
++  size_tree = make_tree (size_type_node, size);
+ 
+   /* It is incorrect to use the libcall calling conventions for calls to
+      memset because it can be provided by the user.  */

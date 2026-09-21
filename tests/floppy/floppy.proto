@@ -1,0 +1,5 @@
+boot
+400 64
+d--755 2 2
+hello ---644 2 2 tests/floppy/hello.txt
+$

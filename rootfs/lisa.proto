@@ -1,0 +1,41 @@
+# Root file system for Minix on the Lisa (tools/mkfs.py prototype).
+# Loaded into the RAM disk by the boot block; 360 blocks.
+boot
+360 96
+d--755 2 2
+bin d--755 2 2
+	sh      ---755 2 2 build/atari/cmd/sh
+	login   ---755 2 2 build/atari/cmd/login
+	ls      ---755 2 2 build/atari/cmd/ls
+	cat     ---755 2 2 build/atari/cmd/cat
+	echo    ---755 2 2 build/atari/cmd/echo
+	pwd     ---755 2 2 build/atari/cmd/pwd
+	mkdir   -u-755 0 2 build/atari/cmd/mkdir
+	rm      ---755 2 2 build/atari/cmd/rm
+	cp      ---755 2 2 build/atari/cmd/cp
+	sync    ---755 2 2 build/atari/cmd/sync
+$
+dev d--755 2 2
+	ram     b--600 0 0 1 0
+	mem     c--600 0 0 1 1
+	kmem    c--600 0 0 1 2
+	null    c--666 0 0 1 3
+	tty0    c--666 0 0 4 0
+	tty     c--666 0 0 5 0
+	hd0     b--600 0 0 3 0
+	hd1     b--600 0 0 3 1
+$
+etc d--755 2 2
+	passwd  ---644 0 0 rootfs/etc/passwd
+	group   ---644 0 0 rootfs/etc/group
+	ttys    ---644 0 0 rootfs/etc/ttys
+	rc      ---644 0 0 rootfs/etc/rc
+	motd    ---644 0 0 rootfs/etc/motd
+$
+tmp d--777 2 2
+$
+usr d--755 2 2
+	adm d--755 2 2
+	$
+$
+$
